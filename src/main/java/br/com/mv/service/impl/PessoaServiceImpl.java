@@ -13,38 +13,36 @@ import br.com.mv.service.PessoaService;
 
 @Service
 @Transactional
-public class PessoaServiceImpl implements PessoaService{
+public class PessoaServiceImpl implements PessoaService {
 
 	@Inject
 	private PessoaRepository pessoaRepository;
 
 	@Override
 	public Pessoa save(Pessoa pessoa) {
-		// TODO Auto-generated method stub
-		return null;
+		return pessoaRepository.save(pessoa);
 	}
 
 	@Override
 	public Pessoa update(Pessoa pessoa) {
-		// TODO Auto-generated method stub
-		return null;
+		return pessoaRepository.update(pessoa);
 	}
 
 	@Override
-	public void delete(Pessoa pessoa) {
-		// TODO Auto-generated method stub
+	public void delete(Long id) {
+		pessoaRepository.delete(id);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Pessoa findById(Long id) {
 		return pessoaRepository.findById(id);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<Pessoa> find(String nome, String cpf) {
-		// TODO Auto-generated method stub
-		return null;
+		return pessoaRepository.find(nome, cpf);
 	}
-
 
 }

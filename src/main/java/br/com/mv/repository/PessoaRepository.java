@@ -10,6 +10,8 @@ public interface PessoaRepository {
 
 	public Pessoa update(Pessoa pessoa);
 
+	public void delete(Long id);
+	
 	public void delete(Pessoa pessoa);
 	
 	public Pessoa findById(Long id);

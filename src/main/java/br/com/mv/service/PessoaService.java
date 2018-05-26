@@ -10,7 +10,7 @@ public interface PessoaService {
 
 	public Pessoa update(Pessoa pessoa);
 
-	public void delete(Pessoa pessoa);
+	public void delete(Long id);
 	
 	public Pessoa findById(Long id);
 

@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 
 @Table(name = "pessoa")
 @Entity
@@ -50,6 +52,7 @@ public class Pessoa {
 	@Column(name = "email")
 	private String email;
 	
+	@JsonManagedReference(value="pessoa-telefone")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
 	private List<Telefone> telefones;
 }
