@@ -1,18 +1,13 @@
 package br.com.mv.model;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "pessoa")
+@Table(name = "telefone")
 @Entity
 @Builder
 @AllArgsConstructor
@@ -31,25 +26,21 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class Pessoa {
+public class Telefone {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "nome")
-	private String nome;
+	@Column(name = "ddd")
+	private String ddd;
 
-	@Column(name = "cpf")
-	private String cpf;
+	@Column(name = "numero")
+	private String numero;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3:00")
-	@Column(name = "data_nascimento")
-	private Date dataNascimento;
+	@ManyToOne
+	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
+	private Pessoa pessoa;
 
-	@Column(name = "email")
-	private String email;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
-	private List<Telefone> telefones;
 }
