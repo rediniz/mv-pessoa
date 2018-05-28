@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import br.com.mv.model.Pessoa;
 import br.com.mv.service.PessoaService;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "api/pessoa")
 public class PessoaController {
 
