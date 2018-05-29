@@ -3,14 +3,17 @@ package br.com.mv.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,7 +25,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 
 @Table(name = "pessoa")
 @Entity
@@ -39,20 +41,32 @@ public class Pessoa {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 
-	@Column(name = "cpf", unique = true)
+	@Column(name = "cpf", unique = true, length = 11, nullable = false)
 	private String cpf;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3:00")
-	@Column(name = "data_nascimento")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@Column(name = "data_nascimento", nullable = false)
 	private Date dataNascimento;
 
 	@Column(name = "email")
 	private String email;
-	
-	@JsonManagedReference(value="pessoa-telefone")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pessoa")
+
+	@JsonManagedReference(value = "pessoa-telefone")
+	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, fetch = FetchType.LAZY)
+	@Cascade({
+        CascadeType.ALL
+    })
 	private List<Telefone> telefones;
+	
+	public void setTelefones(List<Telefone> telefones) {
+		if(this.telefones == null) {
+			this.telefones = telefones;
+		} else {
+			this.telefones.clear();
+			this.telefones.addAll(telefones);
+		}
+	}
 }

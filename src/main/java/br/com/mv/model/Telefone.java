@@ -34,14 +34,14 @@ public class Telefone {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "ddd")
+	@Column(name = "ddd", nullable = false)
 	private String ddd;
 
-	@Column(name = "numero")
+	@Column(name = "numero", nullable = false)
 	private String numero;
 
 	@JsonBackReference(value="pessoa-telefone")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 
