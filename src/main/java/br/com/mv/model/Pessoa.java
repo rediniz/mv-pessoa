@@ -42,7 +42,7 @@ public class Pessoa {
 	@Column(name = "nome")
 	private String nome;
 
-	@Column(name = "cpf")
+	@Column(name = "cpf", unique = true)
 	private String cpf;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3:00")
